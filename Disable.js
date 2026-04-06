@@ -1,6 +1,22 @@
-
+/**
+ * remove-regional-pricing.js
+ *
+ * Disables regional pricing on all Roblox gamepasses across all of your games.
+ * Only updates passes that actually have regional pricing enabled.
+ *
+ * USAGE:
+ *   1. Go to https://create.roblox.com and log in
+ *   2. Open DevTools (F12) → Console tab
+ *   3. Paste this entire script and press Enter
+ *
+ * Made by viswa — https://x.com/vis3d_
+ * NOTE: Only affects games owned by the currently logged-in account.
+ */
 
 (async () => {
+  console.log("Made by viswa — https://x.com/vis3d_");
+  console.log("");
+
   const DELAY_MS = 400; // delay between requests to avoid rate limiting
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
