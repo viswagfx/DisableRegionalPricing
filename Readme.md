@@ -43,7 +43,12 @@ That's it. The script will handle everything automatically.
 | Disable regional pricing | `PATCH apis.roblox.com/game-passes/v1/universes/{universeId}/game-passes/{passId}` |
 
 ---
-
+ 
+## 👤 Credits
+ 
+Made by [viswa](https://x.com/vis3d_)
+ 
+---
 ## 📄 License
 
 MIT — do whatever you want with it.
