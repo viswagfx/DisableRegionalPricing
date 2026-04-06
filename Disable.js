@@ -1,15 +1,4 @@
-/**
- * remove-regional-pricing.js
- *
- * Disables regional pricing on all Roblox gamepasses across all of your games.
- *
- * USAGE:
- *   1. Go to https://create.roblox.com and log in
- *   2. Open DevTools (F12) → Console tab
- *   3. Paste this entire script and press Enter
- *
- * NOTE: Only affects games owned by the currently logged-in account.
- */
+
 
 (async () => {
   const DELAY_MS = 400; // delay between requests to avoid rate limiting
@@ -78,10 +67,35 @@
       continue;
     }
 
-    // Disable regional pricing on each gamepass
+    // Check and disable regional pricing on each gamepass
     for (const pass of gamePasses) {
+
+      // Check if regional pricing is actually enabled
+      const checkRes = await fetch(
+        `https://apis.roblox.com/game-passes/v1/universes/${universeId}/game-passes/${pass.id}/creator`,
+        { credentials: "include" }
+      );
+
+      if (!checkRes.ok) {
+        console.warn(`  ⚠️ ${pass.name} — could not check status (${checkRes.status})`);
+        totalFailed++;
+        await sleep(DELAY_MS);
+        continue;
+      }
+
+      const detail = await checkRes.json();
+      const hasRegionalPricing = detail?.priceInformation?.enabledFeatures?.includes("RegionalPricing");
+
+      if (!hasRegionalPricing) {
+        console.log(`  ⏭️  ${pass.name} — regional pricing already off`);
+        totalSkipped++;
+        await sleep(DELAY_MS);
+        continue;
+      }
+
+      // Disable regional pricing
       const boundary = "----FormBoundary" + Math.random().toString(36).slice(2);
-      const res = await fetch(
+      const patchRes = await fetch(
         `https://apis.roblox.com/game-passes/v1/universes/${universeId}/game-passes/${pass.id}`,
         {
           method: "PATCH",
@@ -100,11 +114,11 @@
         }
       );
 
-      if (res.ok) {
-        console.log(`  ✅ ${pass.name}`);
+      if (patchRes.ok) {
+        console.log(`  ✅ ${pass.name} — regional pricing disabled`);
         totalUpdated++;
       } else {
-        console.warn(`  ❌ ${pass.name} (${res.status})`);
+        console.warn(`  ❌ ${pass.name} — failed to disable (${patchRes.status})`);
         totalFailed++;
       }
 
@@ -115,8 +129,8 @@
 
   // ── Summary ──────────────────────────────────────────────────────────────
   console.log("─".repeat(40));
-  console.log(`✅ Updated:  ${totalUpdated} gamepass(es)`);
+  console.log(`✅ Disabled: ${totalUpdated} gamepass(es)`);
   console.log(`❌ Failed:   ${totalFailed} gamepass(es)`);
-  console.log(`⏭️  Skipped:  ${totalSkipped} game(s) with no passes`);
+  console.log(`⏭️  Skipped:  ${totalSkipped} already off`);
   console.log("─".repeat(40));
 })();
