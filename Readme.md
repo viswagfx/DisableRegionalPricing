@@ -7,9 +7,9 @@ A simple browser console script that automatically disables **regional pricing**
 ## ✨ Features
 
 - ✅ Automatically finds all games on your account
-- ✅ Checks each gamepass before updating — only patches ones that actually have regional pricing enabled
-- ✅ Paginated — works no matter how many games or passes you have
-- ✅ No installs, no extensions, no API keys — just paste and run
+- ✅ Checks each gamepass before updating only updates ones that actually have regional pricing enabled
+- ✅ Works no matter how many games or passes you have
+- ✅ No installs, no extensions, no API keys just paste it and run it
 - ✅ Clean console output with a summary at the end
 
 ---
@@ -26,7 +26,7 @@ That's it. The script will handle everything automatically.
 
 ## ⚠️ Important Notes
 
-- **Must be run on `create.roblox.com`** — the script uses your browser session cookies for authentication, which are only available on that domain
+- **Must be run on `create.roblox.com`** or `roblox.com`** - the script uses your browser session cookies for authentication, which are only available on that domain
 - This only affects games **owned by your account** — group games are not included
 - Running the script multiple times is safe — it skips passes that are already off
 
