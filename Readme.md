@@ -26,7 +26,7 @@ That's it. The script will handle everything automatically.
 
 ## ⚠️ Important Notes
 
-- **Must be run on `create.roblox.com`** or `roblox.com`** - the script uses your browser session cookies for authentication, which are only available on that domain
+- **Must be run on `create.roblox.com` or `roblox.com`** - the script uses your browser session cookies for authentication, which are only available on that domain
 - This only affects games **owned by your account** — group games are not included
 - Running the script multiple times is safe — it skips passes that are already off
 
